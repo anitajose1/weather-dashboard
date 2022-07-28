@@ -1,0 +1,59 @@
+:root {
+    --primary-color: rgb(160, 82, 45);
+    --secondary-color: #0B3954;
+    --tertiary-color: #E6B89C;  
+    --fourth-color:
+  }
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+main {
+    margin: 0.7% 0.8% 0.7% 0.8%;
+}
+
+header {
+    background-color: var(--primary-color);
+    color: whitesmoke;
+    text-align: center;
+    padding: 6px 0 6px 0;
+}
+
+.city-search {
+    width: 20%;
+}
+
+.city-search h2 {
+    margin-top: 7px;
+}
+
+.search-form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 8px;
+}
+
+form input {
+    margin-bottom: 9px;
+    padding: 7px 0 7px 0;
+    text-indent: 6px;
+}
+
+form button {
+    margin-bottom: 9px;
+    padding: 6px 0 6px 0;
+    background-color: rgb(55, 105, 93);;
+    color: whitesmoke;
+    border-color: darkcyan;
+    border:inherit;
+    font-size: 15px;
+}
+
+form button:hover {
+    background-color: darkcyan;
+    color: White;
+}
