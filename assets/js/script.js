@@ -1,17 +1,15 @@
 const apiKey = "97857c9ded1954e78f56f02d49e566a9"
-var inputEl = document.querySelector(".city-name");
+var inputEl = document.querySelector("#city-name");
 var searchBtnEl = document.querySelector(".search-btn")
 var searchHistory = []
 
 var getWeatherData = function () {
-    var apiUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + inputEl.value + "&limit=5&appid=" + apiKey
+    var apiUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=5&appid=" + apiKey
 
     fetch(apiUrl).then(function (response) {
         if (response.ok) {
             response.json().then(function(data) {
-                if (data.response === "true") {
-                    console.log(data, city);
-                }
+                console.log(data);
             })
         }
     })
@@ -30,6 +28,6 @@ var getCityName = function (event) {
 }
 
 
+getCityName()
 
-
-searchBtnEl.addEventListener("click", getWeatherData)
+searchBtnEl.addEventListener("click", getCityName)
