@@ -3,16 +3,36 @@ var inputEl = document.querySelector("#city-name");
 var searchBtnEl = document.querySelector(".search-btn")
 var searchHistory = []
 
-var getWeatherData = function () {
-    var apiUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=5&appid=" + apiKey
+// get city weather info using the collected latitude & longitude data  
+var getWeatherInfo = function (data) {
+    var apiUrlTwo =  "https://api.openweathermap.org/data/3.0/onecall?lat=" + data[0].lat + "&lon=" + data[0].lon + "&appid=" + apiKey
 
-    fetch(apiUrl).then(function (response) {
+    fetch(apiUrlTwo).then(function (response) {
+        if (response.ok) {
+            response.json().then(function(dataNew) {
+                console.log(dataNew);
+            })
+        } 
+    })
+}
+
+// function to get latitude & longitude data based on city name inputted
+var getLatAndLong = function (city) {
+    var apiUrlOne = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=" + apiKey
+
+    fetch(apiUrlOne).then(function (response) {
         if (response.ok) {
             response.json().then(function(data) {
                 console.log(data);
+                console.log(data[0].lat);
+                console.log(data[0].lon);
+
+                // call getWeatherInfo function
+                getWeatherInfo(data)
             })
-        }
+        } 
     })
+
 }
 
 var getCityName = function (event) {
@@ -20,14 +40,13 @@ var getCityName = function (event) {
     // retrieve button element text data
     var city = inputEl.value.trim()
 
-    // call getWeatherData function
-    getWeatherData(city)
+    // call getLatAndLong function 
+    getLatAndLong(city)
 
     // clear input field
     inputEl.value = ""
 }
 
 
-getCityName()
 
 searchBtnEl.addEventListener("click", getCityName)
