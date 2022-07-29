@@ -3,7 +3,6 @@ var inputEl = document.querySelector("#city-name");
 var searchBtnEl = document.querySelector(".search-btn")
 var currentWeatherDiv = document.querySelector(".city-weather")
 var weatherForecastDiv = document.querySelector(".forecast")
-var cloudIcon = document.querySelector(".fa-solid")
 var searchHistory = []
 
 // Display the weather info on pg 
@@ -11,28 +10,38 @@ var displayCurrentWeather = function(dataNew, city) {
     currentWeatherDiv.style.borderColor = "black"
     // make city name, date & icon appear
     var cityName = document.createElement("h2")
-    cityName.classList = "city-searched"
+    cityName.classList.add("city-searched")
 
-    var date = new Date().toLocaleDateString
+    var date = new Date(0)
+    // converting epoch time to date
+    date.setUTCSeconds(dataNew.current.dt)
+    date = date.toLocaleDateString("en-US")
 
-    cityName.textContent = city + " (" + date + ") " + cloudIcon
+    console.log(city);
+
+    cityName.textContent = city + " (" + date + ")"
     cityName.style.color = "black"
+
+    // create icon element
+    var iconImgEl = document.createElement("img")
+    iconImgEl.src = `https://openweathermap.org/img/wn/${dataNew.current.weather[0].icon}.png`
+    iconImgEl.innerHTML = dataNew.current.weather[0].icon
 
     // make temp, wind speed, humidity & uvi appear on pg
     var temp = document.createElement("p")
-    temp.classList = "temperature"
+    temp.classList.add("temperature")
     temp.textContent = "Temp: " + Math.round(dataNew.current.temp) + "\u00B0" + "F"
     temp.style.color = "black"
     var windSpeed = document.createElement("p")
-    windSpeed.classList = "wind-speed"
+    windSpeed.classList.add("wind-speed")
     windSpeed.textContent = "Wind: " + dataNew.current.wind_speed + " MPH"
     windSpeed.style.color = "black"
     var humidity = document.createElement("p")
-    humidity.classList = "humidity"
+    humidity.classList.add("humidity")
     humidity.textContent = "Humidity: " + dataNew.current.humidity + "%"
     humidity.style.color = "black"
     var uvi = document.createElement("p")
-    uvi.classList = "uvi"
+    uvi.classList.add("uvi")
     uvi.textContent = "UV Index: " + dataNew.current.uvi
     uvi.style.color = "black"
 
@@ -42,6 +51,7 @@ var displayCurrentWeather = function(dataNew, city) {
     currentWeatherDiv.appendChild(windSpeed)
     currentWeatherDiv.appendChild(humidity)
     currentWeatherDiv.appendChild(uvi)
+    currentWeatherDiv.appendChild(iconImgEl)
 }
 
 // get city weather info using the collected latitude & longitude data  
@@ -57,9 +67,9 @@ var getWeatherInfo = function (data) {
                 console.log(dataNew.current.wind_speed);
                 console.log(dataNew.current.humidity);
                 console.log(dataNew.current.uvi);
-
+                
                 // call displayCurrentWeather function
-                displayCurrentWeather(dataNew)
+                displayCurrentWeather(dataNew, data[0].name)
             })
         } 
     })
@@ -81,7 +91,6 @@ var getLatAndLong = function (city) {
             })
         } 
     })
-
 }
 
 // collect city name from input
@@ -89,13 +98,12 @@ var getCityName = function (event) {
     event.preventDefault()
     // retrieve button element text data
     var city = inputEl.value.trim()
-
+    console.log(inputEl.value);
     // / clear input field
     inputEl.value = ""
 
     // call getLatAndLong & displayCurrentWeather functions 
     getLatAndLong(city)
-    displayCurrentWeather(city)
 }
 
 
