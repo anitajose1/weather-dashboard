@@ -39,7 +39,7 @@ section {
 }
 
 .city-weather {
-    border: black solid 1px;
+    /* border: black solid 1px; */
     margin: 10px 10px 0 17px;
     height: auto;
     display: flex;
@@ -50,7 +50,23 @@ section {
 .forecast {
     border: black solid 1px;
     margin: 10px 10px 0 17px;
-    height: 250px;
+    height: auto;
+}
+
+.forecast-header {
+    width: 100%;
+    border-color: black solid 1px;
+    height: 20px
+}
+
+.days-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.day1, .day2, .day3, .day4, .day5 {
+    border-color: black solid 1px;
+    height: 200px;
 }
 
 .city-search h2 {

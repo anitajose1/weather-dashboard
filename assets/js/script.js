@@ -1,12 +1,14 @@
 const apiKey = "97857c9ded1954e78f56f02d49e566a9"
 var inputEl = document.querySelector("#city-name");
 var searchBtnEl = document.querySelector(".search-btn")
-var currentWeatherEl = document.querySelector(".city-weather")
+var currentWeatherDiv = document.querySelector(".city-weather")
+var weatherForecastDiv = document.querySelector(".forecast")
 var cloudIcon = document.querySelector(".fa-solid")
 var searchHistory = []
 
 // Display the weather info on pg 
 var displayCurrentWeather = function(dataNew, city) {
+    currentWeatherDiv.style.borderColor = "black"
     // make city name, date & icon appear
     var cityName = document.createElement("h2")
     cityName.classList = "city-searched"
@@ -34,18 +36,18 @@ var displayCurrentWeather = function(dataNew, city) {
     uvi.textContent = "UV Index: " + dataNew.current.uvi
     uvi.style.color = "black"
 
-    // append city name, temp, wind speed, humidity & uvi to div
-    currentWeatherEl.appendChild(cityName)
-    currentWeatherEl.appendChild(temp)
-    currentWeatherEl.appendChild(windSpeed)
-    currentWeatherEl.appendChild(humidity)
-    currentWeatherEl.appendChild(uvi)
+    // add border color to div & append city name, temp, wind speed, humidity & uvi to it
+    currentWeatherDiv.appendChild(cityName)
+    currentWeatherDiv.appendChild(temp)
+    currentWeatherDiv.appendChild(windSpeed)
+    currentWeatherDiv.appendChild(humidity)
+    currentWeatherDiv.appendChild(uvi)
 }
 
 // get city weather info using the collected latitude & longitude data  
 var getWeatherInfo = function (data) {
     // use ver 2.5 of OpenWeather instead of ver 3.0 which requires subscription
-    var apiUrlTwo = "https://api.openweathermap.org/data/2.5/onecall?lat=" + data[0].lat + "&lon=" + data[0].lon + "&appid=" + apiKey
+    var apiUrlTwo = "https://api.openweathermap.org/data/2.5/onecall?lat=" + data[0].lat + "&lon=" + data[0].lon + "&exclude=minutely,hourly,alerts&appid=" + apiKey
 
     fetch(apiUrlTwo).then(function (response) {
         if (response.ok) {
@@ -88,15 +90,13 @@ var getCityName = function (event) {
     // retrieve button element text data
     var city = inputEl.value.trim()
 
-    // call getLatAndLong function 
-    getLatAndLong(city)
-
-    displayCurrentWeather(city)
-
-    // clear input field
+    // / clear input field
     inputEl.value = ""
-}
 
+    // call getLatAndLong & displayCurrentWeather functions 
+    getLatAndLong(city)
+    displayCurrentWeather(city)
+}
 
 
 searchBtnEl.addEventListener("click", getCityName)
