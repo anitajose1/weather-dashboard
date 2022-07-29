@@ -1,8 +1,7 @@
 :root {
     --primary-color: rgb(160, 82, 45);
-    --secondary-color: #0B3954;
+    --secondary-color: rgb(0, 139, 139);
     --tertiary-color: #E6B89C;  
-    --fourth-color:
   }
 
 * {
@@ -23,12 +22,39 @@ header {
     padding: 6px 0 6px 0;
 }
 
+section {
+    display: flex;
+}
+
 .city-search {
     width: 20%;
+    margin-left: 10px;
+}
+
+.weather-details {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    /* margin: 10px 10px 0 17px; */
+}
+
+.city-weather {
+    border: black solid 1px;
+    margin: 10px 10px 0 17px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 8px 0 0 8px;
+}
+
+.forecast {
+    border: black solid 1px;
+    margin: 10px 10px 0 17px;
+    height: 250px;
 }
 
 .city-search h2 {
-    margin-top: 7px;
+    margin-top: 10px;
 }
 
 .search-form {
@@ -48,12 +74,24 @@ form button {
     padding: 6px 0 6px 0;
     background-color: rgb(55, 105, 93);;
     color: whitesmoke;
-    border-color: darkcyan;
+    border-color: var(--secondary-color);
     border:inherit;
     font-size: 15px;
 }
 
 form button:hover {
-    background-color: darkcyan;
+    background-color: var(--secondary-color);
     color: White;
+}
+
+.city-searched {
+    margin-bottom: 15px;
+}
+
+.fa-solid {
+    background-color:lightblue;
+}
+
+.temperature, .wind-speed, .humidity, .uvi  {
+    margin-bottom: 10px;
 }
