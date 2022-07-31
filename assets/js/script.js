@@ -199,10 +199,12 @@ var getCityName = function (event) {
     // call getLatAndLong function 
     getLatAndLong(city)
 
+    //set to local storage
     var searchHistory = JSON.parse(localStorage.getItem("pastCities")) || []
     searchHistory.push(city)
     localStorage.setItem("pastCities", JSON.stringify(searchHistory))
 
+    // create search history city buttons & give textContent as city
     var pastCityBtn = document.createElement("button")
     pastCityBtn.classList.add("history-btn")
     pastCityBtn.setAttribute("type", "submit");
@@ -210,11 +212,13 @@ var getCityName = function (event) {
     pastCityBtn.textContent = city
     searchHistoryDiv.appendChild(pastCityBtn)
 
+    // click function to retrieve searched city data
+    document.addEventListener('click', event => {
+        if(event.target.classList.contains('history-btn')) {
+            // console.log(event.target.textContent)
+            getLatAndLong(event.target.textContent)
+        }
+    })
 }
-
-
-// var searchHistory = JSON.parse(localStorage.getItem("pastCities")) || []
-// searchHistory.push(city)
-// localStorage.setItem("pastCities", JSON.stringify(searchHistory))
 
 searchBtnEl.addEventListener("click", getCityName)
