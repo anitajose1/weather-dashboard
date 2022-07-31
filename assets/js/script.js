@@ -2,13 +2,14 @@ const apiKey = "97857c9ded1954e78f56f02d49e566a9"
 var inputEl = document.querySelector("#city-name");
 var searchBtnEl = document.querySelector(".search-btn")
 var weatherInfoDiv = document.querySelector(".weather-details")
-// var currentTitleDiv = document.querySelector(".current-weather-title")
+var weatherSection = document.querySelector("#weather-section")
+var searchHistoryDiv = document.querySelector(".search-history-div")
 var searchHistory = []
 
 // Display the weather info on pg 
 var displayCurrentWeather = function(dataNew, city) {
-    if (currentWeatherDiv = "") {currentWeatherDiv.remove()}
-
+    // remove existing city data and create new city data
+    weatherSection.innerHTML = ""
 
     // div to hold current weather info
     var currentWeatherDiv = document.createElement("div")
@@ -69,8 +70,10 @@ var displayCurrentWeather = function(dataNew, city) {
         spanEl.style.background = "orange"
     } else if (uviValue < 11) {
         spanEl.style.background = "red"
+        spanEl.style.color = "white"
     } else {
         spanEl.style.background = "purple"
+        spanEl.style.color = "white"
     }
 
     // append city name, icon, temp, wind speed, humidity, UVI to corresponding divs
@@ -126,7 +129,8 @@ var displayCurrentWeather = function(dataNew, city) {
         // display temp
         var forecastTemp = document.createElement("p")
         forecastTemp.classList.add("forecast-temp")
-        forecastTemp.textContent = "Temp: " + Math.round(dataNew.daily[i].temp) + "\u00B0" + "F"
+        forecastTemp.textContent = "Temp: " + Math.round(dataNew.daily[i].temp.day) + "\u00B0" + "F"
+
         forecastTemp.style.color = "black"
         daysDiv.appendChild(forecastTemp)
         // display wind speed
@@ -141,19 +145,13 @@ var displayCurrentWeather = function(dataNew, city) {
         forecastHumidity.textContent = "Humidity: " + dataNew.daily[i].humidity + "%"
         forecastHumidity.style.color = "black"
         daysDiv.appendChild(forecastHumidity)
-
-        // daysDiv.appendChild(dateEl)
-        // daysDiv.appendChild(forecastIcon)
-        // daysDiv.appendChild(forecastTemp)
-        // daysDiv.appendChild(forecastWind)
-        // daysDiv.appendChild(forecastHumidity)
     }
 }
 
 // get city weather info using the collected latitude & longitude data  
 var getWeatherInfo = function (data) {
     // use ver 2.5 of OpenWeather instead of ver 3.0 which requires subscription
-    var apiUrlTwo = "https://api.openweathermap.org/data/2.5/onecall?lat=" + data[0].lat + "&lon=" + data[0].lon + "&exclude=minutely,hourly,alerts&appid=" + apiKey
+    var apiUrlTwo = "https://api.openweathermap.org/data/2.5/onecall?lat=" + data[0].lat + "&lon=" + data[0].lon + "&units=imperial&exclude=minutely,hourly,alerts&appid=" + apiKey
 
     fetch(apiUrlTwo).then(function (response) {
         if (response.ok) {
@@ -189,7 +187,7 @@ var getLatAndLong = function (city) {
     })
 }
 
-// collect city name from input
+// collect city name from input AND create search history
 var getCityName = function (event) {
     event.preventDefault()
     // retrieve button element text data
@@ -198,8 +196,25 @@ var getCityName = function (event) {
     // / clear input field
     inputEl.value = ""
 
-    // call getLatAndLong & displayCurrentWeather functions 
+    // call getLatAndLong function 
     getLatAndLong(city)
+
+    var searchHistory = JSON.parse(localStorage.getItem("pastCities")) || []
+    searchHistory.push(city)
+    localStorage.setItem("pastCities", JSON.stringify(searchHistory))
+
+    var pastCityBtn = document.createElement("button")
+    pastCityBtn.classList.add("history-btn")
+    pastCityBtn.setAttribute("type", "submit");
+    city = city.toUpperCase()
+    pastCityBtn.textContent = city
+    searchHistoryDiv.appendChild(pastCityBtn)
+
 }
+
+
+// var searchHistory = JSON.parse(localStorage.getItem("pastCities")) || []
+// searchHistory.push(city)
+// localStorage.setItem("pastCities", JSON.stringify(searchHistory))
 
 searchBtnEl.addEventListener("click", getCityName)

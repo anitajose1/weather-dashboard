@@ -53,7 +53,6 @@ form button {
     background-color: rgb(55, 105, 93);;
     color: whitesmoke;
     border-color: var(--secondary-color);
-    border:inherit;
     font-size: 15px;
 }
 
@@ -130,4 +129,23 @@ form button:hover {
 
 .textEl {
     color: red;
+}
+
+.search-history-div {
+    display: flex;
+    flex-direction: column;
+}
+
+.history-header {
+    margin-top: 85px;
+    margin-bottom: 10px;
+}
+
+.history-btn {
+    margin-bottom: 10px;
+    width: 150px;
+    text-align:center;
+    background-color:gainsboro;
+    border-color:gainsboro;
+    height: 20px;
 }
