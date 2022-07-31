@@ -171,7 +171,7 @@ var getWeatherInfo = function (data) {
 
 // function to get latitude & longitude data based on city name inputted
 var getLatAndLong = function (city) {
-    var apiUrlOne = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=" + apiKey
+    var apiUrlOne = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=" + apiKey
 
     fetch(apiUrlOne).then(function (response) {
         if (response.ok) {

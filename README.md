@@ -10,7 +10,4 @@ The app runs in the browser and was built using HTML, CSS, JavaScript, and the O
 
 The deployed application can be viewed at: https://anitajose1.github.io/weather-dashboard/
 
-- https://getbootstrap.com/docs/4.0/layout/grid/
-- https://www.geeksforgeeks.org/javascript-localstorage/
-
 ![screenshot of deployed application](./assets/images/screenshot.jpg)
