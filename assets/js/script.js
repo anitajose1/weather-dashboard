@@ -7,6 +7,9 @@ var searchHistory = []
 
 // Display the weather info on pg 
 var displayCurrentWeather = function(dataNew, city) {
+    if (currentWeatherDiv = "") {currentWeatherDiv.remove()}
+
+
     // div to hold current weather info
     var currentWeatherDiv = document.createElement("div")
     currentWeatherDiv.classList.add("city-weather")
@@ -101,49 +104,49 @@ var displayCurrentWeather = function(dataNew, city) {
         var daysDiv = document.createElement("div")
         daysDiv.classList.add("days")
         daysContainer.appendChild(daysDiv)
-        // forecast title
-        // var textEl = document.createElement("p")
-        // textEl.classList.add("textEl")
-        // textEl.textContent = "sample text"
-        // daysDiv.appendChild(textEl)
+        
         // date
         var dateEl = document.createElement("h4")
         dateEl.classList.add("next-date")
-        var nextDate = new Date(1)
+        var nextDate = new Date(0)
         // converting epoch time to current date
-        nextDate.setUTCSeconds(dataNew.daily.dt)
+        nextDate.setUTCSeconds(dataNew.daily[i].dt)
         nextDate = nextDate.toLocaleDateString("en-US")
         dateEl.textContent = nextDate
         dateEl.style.color = "black"
-        // daysDiv.appendChild(dateEl)
+        daysDiv.appendChild(dateEl)
         
         // create icon element
         var forecastIcon = document.createElement("img")
-        forecastIcon.src = `https://openweathermap.org/img/wn/${dataNew.daily.weather[1].icon}.png`
-        forecastIcon.innerHTML = dataNew.daily.weather[1].icon
+        forecastIcon.src = `https://openweathermap.org/img/wn/${dataNew.daily[i].weather[0].icon}.png`
+        forecastIcon.innerHTML = dataNew.daily[i].weather[0].icon
         forecastIcon.classList.add("forecast-icon")
+        daysDiv.appendChild(forecastIcon)
         
         // display temp
         var forecastTemp = document.createElement("p")
         forecastTemp.classList.add("forecast-temp")
-        forecastTemp.textContent = "Temp: " + Math.round(dataNew.daily.temp) + "\u00B0" + "F"
+        forecastTemp.textContent = "Temp: " + Math.round(dataNew.daily[i].temp) + "\u00B0" + "F"
         forecastTemp.style.color = "black"
+        daysDiv.appendChild(forecastTemp)
         // display wind speed
         var forecastWind = document.createElement("p")
         forecastWind.classList.add("forecast-wind")
-        forecastWind.textContent = "Wind: " + dataNew.daily.wind_speed + " MPH"
+        forecastWind.textContent = "Wind: " + dataNew.daily[i].wind_speed + " MPH"
         forecastWind.style.color = "black"
+        daysDiv.appendChild(forecastWind)
         // display humidity
         var forecastHumidity = document.createElement("p")
         forecastHumidity.classList.add("forecast-humidity")
-        forecastHumidity.textContent = "Humidity: " + dataNew.daily.humidity + "%"
+        forecastHumidity.textContent = "Humidity: " + dataNew.daily[i].humidity + "%"
         forecastHumidity.style.color = "black"
-
-        daysDiv.appendChild(forecastTemp)
-        daysDiv.appendChild(forecastWind)
         daysDiv.appendChild(forecastHumidity)
-        daysDiv.appendChild(forecastIcon)
-        daysDiv.appendChild(dateEl)
+
+        // daysDiv.appendChild(dateEl)
+        // daysDiv.appendChild(forecastIcon)
+        // daysDiv.appendChild(forecastTemp)
+        // daysDiv.appendChild(forecastWind)
+        // daysDiv.appendChild(forecastHumidity)
     }
 }
 
