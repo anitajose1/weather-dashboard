@@ -62,15 +62,18 @@ form button:hover {
     color: White;
 }
 
-.temperature, .wind-speed, .humidity, .uvi  {
+.temperature, .wind-speed, .humidity  {
     margin-bottom: 10px;
+}
+
+.uvi {
+    margin-bottom: 18px;
 }
 
 .weather-details {
     width: 80%;
     display: flex;
     flex-direction: column;
-    /* margin: 10px 10px 0 17px; */
 }
 
 .city-weather {
@@ -84,21 +87,8 @@ form button:hover {
 
 .current-header {
     display: flex;
-    border-color: black;
     align-items: center;
-    margin-bottom: 15px;
-}
-
-.forecast {
-    border: black solid 1px;
-    margin: 10px 10px 0 17px;
-    height: auto;
-}
-
-.forecast-header {
-    width: 100%;
-    border-color: black solid 1px;
-    height: auto;
+    margin-bottom: 12px;
 }
 
 .icon-current {
@@ -107,12 +97,37 @@ form button:hover {
     padding-left: 2px;
 }
 
+.forecast {
+    /* border: black solid 1px; */
+    margin: 10px 10px 0 17px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.forecast-header {
+    width: 100%;
+    /* border-color: black solid 1px; */
+    height: auto;
+}
+
+.forecast-title {
+    margin: 7px 0 9px 0
+}
+
 .days-container {
     display: flex;
     justify-content: space-between;
+    height: 200px;
 }
 
-.day1, .day2, .day3, .day4, .day5 {
-    border-color: black solid 1px;
-    height: 200px;
+.days {
+    /* border: black solid 1px; */
+    /* height: 100px; */
+    background-color: blanchedalmond;
+    padding: 7px 70px 7px 12px;
+}
+
+.textEl {
+    color: red;
 }
